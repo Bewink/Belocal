@@ -1,0 +1,16 @@
+# IDE files and folders
+.idea
+.idea*
+*.iml
+*.ipr
+*.iws
+*.codekit-project
+
+# Excluded folders
+out/*
+vendor
+
+# Cache
+*.cache
+.sass-cache
+cache/

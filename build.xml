@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="Project" default="deploy-local">
+
+    <target name="deploy-local" >
+        <copy todir="${basedir}/out" overwrite="true">
+            <fileset dir="${basedir}/src">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+    </target>
+
+</project>

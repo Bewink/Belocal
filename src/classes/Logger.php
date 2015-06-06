@@ -28,10 +28,10 @@ class Logger
     {
         if ($this->checkFolder()) {
             if (!$this->makeNewFile()) {
-                throw new Exception('Cannot write log file');
+                throw new \Exception('Cannot write log file');
             }
         } else {
-            throw new Exception('Cannot access log folder');
+            throw new \Exception('Cannot access log folder ' . LOGS_DIR);
         }
     }
 

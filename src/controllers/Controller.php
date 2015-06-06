@@ -43,7 +43,7 @@ class Controller
                     'aPages' => $aPages,
                     'sLogUrl' => $sLogUrl,
                 ));
-            } catch (Exception $oE) {
+            } catch (\Exception $oE) {
                 $sError = 'Error : ' . $oE->getMessage();
 
                 $this->oTemplate->assign('sError', $sError);

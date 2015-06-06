@@ -40,4 +40,38 @@
     <target name="reset-local" depends="delete-local,deploy-local" />
     <target name="delete-local-tempfiles" depends="delete-local-logs,delete-local-pdfs" />
 
+    <target name="package" depends="delete-local-tempfiles">
+        <echo>Making package...</echo>
+        <tar  destfile="site.tar.gz" compression="gzip">
+            <tarfileset dir="${basedir}/out">
+                <include name="**/*"/>
+                <exclude name="**/.git" />
+                <exclude name="**/.git/**" />
+                <exclude name="site.tar.gz" />
+            </tarfileset>
+        </tar>
+    </target>
+
+    <target name="upload-preprod">
+        <echo>Uploading...</echo>
+        <scp file="site.tar.gz" todir="root@bew.ink:/home/belocal/www" password="${password}" verbose="true"  sftp="true" trust="true"/>
+    </target>
+
+    <target name="remove-package">
+        <echo>Remove package...</echo>
+        <delete file="site.tar.gz"/>
+    </target>
+
+    <target name="unpack-preprod">
+        <echo>Unpack...</echo>
+        <sshexec host="bew.ink" username="root" password="${password}" verbose="true" trust="true" command="tar -zxvf /home/belocal/www/site.tar.gz -C /home/belocal/www/"/>
+    </target>
+
+    <target name="delete-package-preprod">
+        <echo>Unpack...</echo>
+        <sshexec host="bew.ink" username="root" password="${password}" verbose="true" trust="true" command="rm /home/belocal/www/site.tar.gz"/>
+    </target>
+
+    <target name="deploy-preprod" depends="package,upload-preprod,remove-package,unpack-preprod,delete-package-preprod" />
+
 </project>

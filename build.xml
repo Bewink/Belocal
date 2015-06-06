@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="Project" default="deploy-local">
 
-    <target name="deploy-local" >
+    <target name="deploy-local">
         <copy todir="${basedir}/out" overwrite="true">
             <fileset dir="${basedir}/src">
                 <include name="**/*"/>
             </fileset>
         </copy>
     </target>
+
+    <target name="delete-local">
+        <delete>
+            <fileset dir="${basedir}/out">
+                <include name="**/*"/>
+            </fileset>
+            <dirset dir="${basedir}/out">
+                <include name="**/*"/>
+            </dirset>
+        </delete>
+    </target>
+
+    <target name="delete-local-logs">
+        <delete>
+            <fileset dir="${basedir}/out/logs">
+                <include name="**/*"/>
+                <exclude name="base.html" />
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="delete-local-pdfs">
+        <delete>
+            <fileset dir="${basedir}/out/pdfs">
+                <include name="**/*"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="reset-local" depends="delete-local,deploy-local" />
+    <target name="delete-local-tempfiles" depends="delete-local-logs,delete-local-pdfs" />
 
 </project>
